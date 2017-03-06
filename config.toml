@@ -1,0 +1,7 @@
+[callmonitor]
+host = "10.0.0.1:1012"
+timezone = "Europe/Berlin"
+
+[redis]
+host = "10.0.0.223"
+topic = "call"
