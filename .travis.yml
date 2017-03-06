@@ -2,16 +2,16 @@ language: go
 
 env:
   matrix:
-    - BUILD_GOOS=linux BUILD_GOARCH=amd64 BUILD_NAME=amd64
-    - BUILD_GOOS=linux BUILD_GOARCH=arm BUILD_GOARM=6 BUILD_NAME=armv6
-    - BUILD_GOOS=linux BUILD_GOARCH=arm BUILD_GOARM=7 BUILD_NAME=armv7
-    - BUILD_GOOS=linux BUILD_GOARCH=arm64 BUILD_NAME=aarch64
-    - BUILD_GOOS=freebsd BUILD_GOARCH=amd64 BUILD_NAME=amd64
-    - BUILD_GOOS=freebsd BUILD_GOARCH=arm BUILD_GOARM=6 BUILD_NAME=armv6
-    - BUILD_GOOS=freebsd BUILD_GOARCH=arm BUILD_GOARM=7 BUILD_NAME=armv7
-    - BUILD_GOOS=freebsd BUILD_GOARCH=arm64 BUILD_NAME=aarch64
+    - BLD_GOOS=linux BLD_GOARCH=amd64 BLD_NAME=amd64
+    - BLD_GOOS=linux BLD_GOARCH=arm BLD_GOARM=6 BLD_NAME=armv6
+    - BLD_GOOS=linux BLD_GOARCH=arm BLD_GOARM=7 BLD_NAME=armv7
+    - BLD_GOOS=linux BLD_GOARCH=arm64 BLD_NAME=aarch64
+    - BLD_GOOS=freebsd BLD_GOARCH=amd64 BLD_NAME=amd64
+    - BLD_GOOS=freebsd BLD_GOARCH=arm BLD_GOARM=6 BLD_NAME=armv6
+    - BLD_GOOS=freebsd BLD_GOARCH=arm BLD_GOARM=7 BLD_NAME=armv7
+    - BLD_GOOS=freebsd BLD_GOARCH=arm64 BLD_NAME=aarch64
 
 script:
   - go test -v ./...
   - mkdir dist
-  - GOOS=$BUILD_GOOS GOARCH=$BUILD_GOARCH GOARM=$BUILD_GOARM go build -v ./... -o dist/callmonster-$BUILD_GOOS-$BUILD_NAME
+  - GOOS=$BLD_GOOS GOARCH=$BLD_GOARCH GOARM=$BLD_GOARM go build -v -o dist/callmonster-$BLD_GOOS-$BLD_NAME ./...
