@@ -1,17 +1,24 @@
 language: go
-
 env:
   matrix:
-    - BLD_GOOS=linux BLD_GOARCH=amd64 BLD_NAME=amd64
-    - BLD_GOOS=linux BLD_GOARCH=arm BLD_GOARM=6 BLD_NAME=armv6
-    - BLD_GOOS=linux BLD_GOARCH=arm BLD_GOARM=7 BLD_NAME=armv7
-    - BLD_GOOS=linux BLD_GOARCH=arm64 BLD_NAME=aarch64
-    - BLD_GOOS=freebsd BLD_GOARCH=amd64 BLD_NAME=amd64
-    - BLD_GOOS=freebsd BLD_GOARCH=arm BLD_GOARM=6 BLD_NAME=armv6
-    - BLD_GOOS=freebsd BLD_GOARCH=arm BLD_GOARM=7 BLD_NAME=armv7
-    - BLD_GOOS=freebsd BLD_GOARCH=arm64 BLD_NAME=aarch64
-
+  - BLD_GOOS=linux BLD_GOARCH=amd64 BLD_NAME=amd64
+  - BLD_GOOS=linux BLD_GOARCH=arm BLD_GOARM=6 BLD_NAME=armv6
+  - BLD_GOOS=linux BLD_GOARCH=arm BLD_GOARM=7 BLD_NAME=armv7
+  - BLD_GOOS=linux BLD_GOARCH=arm64 BLD_NAME=aarch64
+  - BLD_GOOS=freebsd BLD_GOARCH=amd64 BLD_NAME=amd64
+  - BLD_GOOS=freebsd BLD_GOARCH=arm BLD_GOARM=6 BLD_NAME=armv6
+  - BLD_GOOS=freebsd BLD_GOARCH=arm BLD_GOARM=7 BLD_NAME=armv7
 script:
-  - go test -v ./...
-  - mkdir dist
-  - GOOS=$BLD_GOOS GOARCH=$BLD_GOARCH GOARM=$BLD_GOARM go build -v -o dist/callmonster-$BLD_GOOS-$BLD_NAME ./...
+- go test -v ./...
+- mkdir dist
+- GOOS=$BLD_GOOS GOARCH=$BLD_GOARCH GOARM=$BLD_GOARM go build -v -o dist/callmonster-$BLD_GOOS-$BLD_NAME
+  ./...
+
+deploy:
+  provider: releases
+  api_key:
+    secure: VPUV+/vBwGjyskEn+B8BTUvYEtFFtHGl0YuHviM0CGVHwrDqOQ2yIJ89azJIp52p1FeD145a99UI1TAyVLMxo0W/CPpiWHaNc549yirTcNM1gh123skOfr/4U4PfMsM8Ytk1A1ldef88F9mVx5Rmf6GqByFsi9Pi1/AfhAW84w0zBNI/faIjSMIgGI1E3YUOIeRpDqQILuG4WC0CS41MvS9JYpnMQE9yU6eS09Own0f0QUREmR3wpnCb+yTGYW/3oE3zoEo6yqu/cokoFUIG6C+XL6PCQHJFD3tb46NJFnGWAPi5uzXfRsG1b8/49fZ5mXWothg2dhzcoQU386PU4shfdfXtWPLr8XS22e9hnae9xK/09odlscxpRx0nUfKM3r8U8oUapOYMqq01U1yk84HdMvMEmkTQbdi/QZrpgnOlHvwMklcKlCedWPdTWgvro7kZRPJA8cpePPh98jq6Ee4yZdCcEoBwDi6pefZH8GgDESCv15J5MXZ4Vd2BX/Xcno4xzONqbFicyyGQAL+0PMNjg5dmE1EXkGKcICjmZ5/F4BfYZNvD511pdIZ/RWmVnzjXxUoGIBumyeYPblFJ16CcIlHaqyqPnYqn+mQ4ucFqRbggEk0tDTYLtPh4ZLRJE4u09Bj3BaMz8ApYFIWNDDFLzqUxfAp69VYJpkHJhnI=
+  file: dist/callmonster-$BLD_GOOS-$BLD_NAME
+  on:
+    repo: xanecs/callmonster
+    tags: true
